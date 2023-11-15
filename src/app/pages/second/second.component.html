@@ -1,0 +1,69 @@
+<div class="page__second">
+  <form>
+    <mat-form-field>
+      <input matInput type="text" name="filterValue" placeholder="Search" (change)="filterData($event)" />
+    </mat-form-field>
+  </form>
+  <table mat-table [dataSource]="sourceData" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by No."> No. </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+      <td mat-cell *matCellDef="let element"> {{ element.type }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="links">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Links </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.links?.self">
+          <a mat-button [href]="element.links?.self" target="_blank">Self</a>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="content">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Content."> Content </th>
+      <td mat-cell *matCellDef="let element"> {{ element.attributes.content }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="display_type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Display Type </th>
+      <td mat-cell *matCellDef="let element"> {{ element.attributes?.display_properties?.type }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="display_image">
+      <th mat-header-cell *matHeaderCellDef> Display Image </th>
+      <td mat-cell *matCellDef="let element">
+        <img [src]="element.attributes?.display_properties?.image" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="authors">
+      <th mat-header-cell *matHeaderCellDef> Authors </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.relationships?.authors?.links?.self">
+          <a mat-button [href]="element.relationships?.authors?.links?.self" target="_blank">Self</a>
+        </ng-container>
+        <ng-container *ngIf="element.relationships?.authors?.links?.related">
+          <a mat-button [href]="element.relationships?.authors?.links?.related" target="_blank">Related</a>
+        </ng-container>
+    </ng-container>
+
+    <ng-container matColumnDef="publishers">
+      <th mat-header-cell *matHeaderCellDef> Publishers </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.relationships?.publishers?.links?.self">
+          <a mat-button [href]="element.relationships?.publishers?.links?.self" target="_blank">Self</a>
+        </ng-container>
+        <ng-container *ngIf="element.relationships?.publishers?.links?.related">
+          <a mat-button [href]="element.relationships?.publishers?.links?.related" target="_blank">Related</a>
+        </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

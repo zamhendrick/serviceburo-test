@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    {{ form_1.value | json }}
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form_1">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Name" formControlName="email" autocomplete="off" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" formControlName="password" autocomplete="off" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

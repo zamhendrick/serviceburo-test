@@ -1,0 +1,8 @@
+<header>
+  <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngFor="let route of routes">
+      <button mat-menu-item (click)="handleNav(route.url)">{{ route.title }}</button>
+    </ng-container>
+  </mat-menu>
+</header>
