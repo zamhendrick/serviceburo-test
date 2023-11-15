@@ -19,27 +19,39 @@ export class SecondComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort,{static: true}) sort!: MatSort;
 
-  getProperty = (obj:any, path:any) => (
-    path.split('.').reduce((o:any, p:any) => o && o[p], obj)
-  )
+  // getProperty = (obj:any, path:any) => (
+  //   path.split('.').reduce((o:any, p:any) => o && o[p], obj)
+  // )
 
   ngOnInit() {
-    
+    this.fetchData();
   }
 
   ngAfterViewInit(): void {
-    this.fetchData();
+
     this.sort.sortChange.subscribe(console.log)
   }
 
   fetchData = () => {
     this.secondService.getExample().subscribe(res => {
-      this.sourceData = new MatTableDataSource(Object(res).data)
-      this.sourceData.sortingDataAccessor = (obj, property) => this.getProperty(obj, property);
+      // this.sourceData = new MatTableDataSource(Object(res).data)
+      // this.sourceData.sort = this.sort
+
+      const resData = Object(res).data.map((item:any) => {
+        return {
+          id: item.id,
+          type: item.type,
+          links: item.links,
+          content: item.attributes.content,
+          display_type: item.attributes.display_properties.type,
+          image: item.attributes.display_properties.image,
+          relationships: item.relationships,
+        }
+      })
+      this.sourceData = new MatTableDataSource(resData)
       this.sourceData.sort = this.sort
     })
   }
-  
 
   filterData = (event:any) => {
     const filteredValue = (event.target as HTMLInputElement).value;

@@ -1,7 +1,7 @@
 <div class="page__second">
   <form>
     <mat-form-field>
-      <input matInput type="text" name="filterValue" placeholder="Search" (change)="filterData($event)" />
+      <input matInput type="text" name="filterValue" placeholder="Search" (keyup)="filterData($event)" />
     </mat-form-field>
   </form>
   <table mat-table [dataSource]="sourceData" matSort>
@@ -16,7 +16,7 @@
     </ng-container>
 
     <ng-container matColumnDef="links">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Links </th>
+      <th mat-header-cell *matHeaderCellDef> Links </th>
       <td mat-cell *matCellDef="let element">
         <ng-container *ngIf="element.links?.self">
           <a mat-button [href]="element.links?.self" target="_blank">Self</a>
@@ -26,18 +26,18 @@
 
     <ng-container matColumnDef="content">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Content."> Content </th>
-      <td mat-cell *matCellDef="let element"> {{ element.attributes.content }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.content }} </td>
     </ng-container>
 
     <ng-container matColumnDef="display_type">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Display Type </th>
-      <td mat-cell *matCellDef="let element"> {{ element.attributes?.display_properties?.type }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.display_type}} </td>
     </ng-container>
 
     <ng-container matColumnDef="display_image">
-      <th mat-header-cell *matHeaderCellDef> Display Image </th>
+      <th mat-header-cell *matHeaderCellDef> Image </th>
       <td mat-cell *matCellDef="let element">
-        <img [src]="element.attributes?.display_properties?.image" />
+        <img [src]="element.image" />
       </td>
     </ng-container>
 
